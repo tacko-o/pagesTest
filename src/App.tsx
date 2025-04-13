@@ -49,30 +49,11 @@ const Main = () => {
   const [png, setPng] = useState<string | null>(null)
 
   useEffect(() => {
-    const fontSize = 32;
-    const pngDataArr: string[] = [];
-
-    // draw
-    const textLine = text.split('\n');
-    textLine.forEach((line, i) => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 128;
-      canvas.height = 128 / (4 / textLine.length);
-      const ctx = canvas.getContext('2d')!;
-      ctx.fillStyle = color;
-      ctx.font = `${fontSize}px '${selectedFont.name}', serif`;
-      ctx.scale(4 / line.length, 4 / textLine.length);
-      ctx.fillText(line, 0, 0);//((canvas.height / textLine.length) * i) / (4 / textLine.length));
-
-      pngDataArr.push(canvas.toDataURL());
-    });
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 128;
-    canvas.height = 128;
-    //setPng(concatCanvas(canvas, pngDataArr));
-    setPng(pngDataArr[0])
-  }, [text, selectedFont])
+    (async () => {
+      const png = await getPngFromString(text);
+      setPng(png);
+    })();
+  }, [selectedFont])
 
   /**
    * Canvas合成
@@ -93,11 +74,42 @@ const Main = () => {
   }
 
   /**
+   * プレビュー用canvas描画
+   */
+  const getPngFromString = async (text: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      try {
+      const fontSize = 32;
+      const canvas = document.createElement('canvas');
+      canvas.width = 128;
+      canvas.height = 128;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = color;
+      ctx.font = `${fontSize}px '${selectedFont.name}', serif`;
+
+      // draw
+      const textLine = text.split('\n');
+      textLine.forEach((line, i) => {
+        ctx.save();        
+        ctx.scale(4 / line.length, 4 / textLine.length);
+        ctx.fillText(line, 0, (fontSize - 4) * (i + 1));
+        ctx.restore();
+      });
+      resolve(canvas.toDataURL());
+    } catch(e) {
+      reject();
+    }
+    });
+  }
+
+  /**
    * テキストエリア要素変更イベント
    * @param e textarea要素変更イベント
    */
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
+    const png = await getPngFromString(e.target.value);
+    setPng(png);
   };
 
   return (
@@ -116,6 +128,7 @@ const Main = () => {
           }
         </span>
       </div>
+      {/* プレビュー */}
       {png && (
         <div className="comp" style={{ display: 'flex' }}>
           <img alt="result" src={png} />

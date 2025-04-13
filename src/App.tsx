@@ -3,8 +3,8 @@ import ReactDOMServer from "react-dom/server";
 import Fonts from './resource/fonts.json'
 import ConvertList from './resource/letter_convert_list.json'
 import './App.css';
-import FontButton from './FontButton';
-import EmojiPreviewBox from './EmojiPreviewBox';
+import FontButton, { Font } from './components/FontButton';
+import ResultBox from './components/ResultBox';
 
 /**
  * 絵文字名変換表
@@ -45,72 +45,21 @@ const Main = () => {
       i++;
     }
   }
-
-  const [png, setPng] = useState<string | null>(null)
-
-  useEffect(() => {
-    (async () => {
-      const png = await getPngFromString(text);
-      setPng(png);
-    })();
-  }, [selectedFont])
-
-  /**
-   * Canvas合成
-   * @param {string} canvas 合成結果を描画するcanvas
-   * @param {array} pngDataArr 合成するpng
-   * @returns {string} png
-   */
-  const concatCanvas = (canvas: HTMLCanvasElement, pngDataArr: string[]): string => {
-    const ctx = canvas.getContext("2d")!;
-
-    for (let i = 0; i < pngDataArr.length; i++) {
-      const image = new Image();
-      image.src = pngDataArr[i];
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    }
-
-    return canvas.toDataURL();
-  }
-
-  /**
-   * プレビュー用canvas描画
-   */
-  const getPngFromString = async (text: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      try {
-      const fontSize = 32;
-      const canvas = document.createElement('canvas');
-      canvas.width = 128;
-      canvas.height = 128;
-      const ctx = canvas.getContext('2d')!;
-      ctx.fillStyle = color;
-      ctx.font = `${fontSize}px '${selectedFont.name}', serif`;
-
-      // draw
-      const textLine = text.split('\n');
-      textLine.forEach((line, i) => {
-        ctx.save();        
-        ctx.scale(4 / line.length, 4 / textLine.length);
-        ctx.fillText(line, 0, (fontSize - 4) * (i + 1));
-        ctx.restore();
-      });
-      resolve(canvas.toDataURL());
-    } catch(e) {
-      reject();
-    }
-    });
-  }
-
   /**
    * テキストエリア要素変更イベント
    * @param e textarea要素変更イベント
    */
   const handleTextChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
-    const png = await getPngFromString(e.target.value);
-    setPng(png);
   };
+
+  /**
+   * フォント選択ボタンクリックイベント
+   * @param e イベントハンドラ
+   */
+  const fontButtonOnClick = (font: Font) => {
+    setSelectedFont(font);
+  }
 
   return (
     <div className="App-header">
@@ -119,21 +68,13 @@ const Main = () => {
         <textarea value={text} style={{ fontFamily: selectedFont.name }} onChange={handleTextChange} />
       </div>
       <div>
-        <span className='font'>
-          {
-            /* フォントボタン */
-            Fonts.map((font) => {
-              return <FontButton key={font.name} text={text} font={font} pressed={selectedFont.name === font.name} onClick={() => { setSelectedFont(font); }} />
-            })
-          }
-        </span>
+        { /* フォントボタン群 */}
+        <FontButton text={text} fonts={Fonts} onClick={fontButtonOnClick} />
       </div>
-      {/* プレビュー */}
-      {png && (
-        <div className="comp" style={{ display: 'flex' }}>
-          <img alt="result" src={png} />
-        </div>
-      )}
+      <div>
+        {/* プレビュー */}
+        <ResultBox text={text} font={selectedFont} color={'#000000'} />
+      </div>
     </div>
   );
 }

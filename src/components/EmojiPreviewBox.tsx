@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+import '../App.css';
 
 type EmojiPreviewBoxProps = {
   text: string,
@@ -10,7 +10,6 @@ type EmojiPreviewBoxProps = {
   color: string,
 }
 const EmojiPreviewBox = ({ text, font, color }: EmojiPreviewBoxProps) => {
-
 
   const [textLine, setTextLine] = useState(text.split('\n'));
 
@@ -24,7 +23,7 @@ const EmojiPreviewBox = ({ text, font, color }: EmojiPreviewBoxProps) => {
       console.log("文字数超過テスト")
     };
   }, [text]);
-  // , transform: `scale(${3 / line.length}, ${3 / textLine.length})`,
+
   return (
     <>
       <span style={{ fontFamily: font.name }} className='font-preview'>

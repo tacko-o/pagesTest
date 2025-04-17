@@ -16,7 +16,7 @@ const NotePreview = ({ png, dark = false }: NotePreviewProps) => {
           <div className='icon'>
             <img height='50' width='50' src={icon} />
           </div>
-          <div>
+          <div className='note-right'>
             <div className='header'>
               <span className='note-name'>
                 えぐみ<img className='note-emoji-img' src={png} />

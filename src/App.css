@@ -1,18 +1,32 @@
 body {
   background-color: #f6ebde;
-  padding: 15px;
+  padding: 30px 15px;
   color: #4e2600;
 }
 
-h1 {
-  color: #583a11;
+.title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  margin: 0;
+  padding: 5px;
+  font-size: 0.8em;;
+  color: #ffffff;
+  background-color: #583a11;
+}
+
+.text {
+  width: 140px;
+  height: 128px;
 }
 
 .emoji-preview {
-  margin: 0 15px;
+  margin: 0 auto;
   background-color: #f0f0f0;
   border: 1px solid rgb(126, 67, 0);
   border-radius: 5px;
+  height: 128px;
 }
 
 .font-button {

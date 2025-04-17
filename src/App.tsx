@@ -8,7 +8,7 @@ import { getPng } from './utils/EmojiRenderer';
 
 const Main = () => {
   /** 絵文字名変換表 */
-const convertList: { [key: string]: string } = ConvertList;
+  const convertList: { [key: string]: string } = ConvertList;
 
   /** 絵文字にする文字列 */
   const [text, setText] = useState('おふとん\nかけてあげ\nましょうね');
@@ -72,20 +72,22 @@ const convertList: { [key: string]: string } = ConvertList;
 
   return (
     <div className="App-header">
-      <div style={{display: 'flex'}}>
-        {/* テキスト */}
-        <textarea value={text} onChange={handleTextChange} />
+      <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
         {/* 画像プレビュー */}
         <span className='emoji-preview'>
-        {png && <img alt="result" src={png} />}
+          {png && <img alt="result" src={png} />}
         </span>
-        { /* フォントボタン群 */}
-        <FontButton text={text} fonts={Fonts} onClick={fontButtonOnClick} />
       </div>
-      <div>
+      <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
         {/* ノートプレビュー */}
-        <NotePreview png={png}/>
-        <NotePreview png={png} dark/>
+        <NotePreview png={png} />
+        <NotePreview png={png} dark />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
+      {/* テキスト */}
+      <textarea className='text' style={{ fontFamily: `${selectedFont.name}` }} value={text} onChange={handleTextChange} />
+      { /* フォントボタン群 */}
+      <FontButton text={text} fonts={Fonts} onClick={fontButtonOnClick} />
       </div>
     </div>
   );
@@ -97,7 +99,9 @@ const App = () => {
       {/* フォント読み込み */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link href={`https://fonts.googleapis.com/css2?${Fonts.map((font) => 'family=' + font.name.replaceAll(' ', '+')).join('&')}&display=swap`} rel="stylesheet" />
-      <h1>Emoji Generator for Misskey</h1>
+      <div className='title'><span style={{ fontWeight: 'bold' }}>EGMi</span>
+        <span style={{ fontSize: '0.5em', marginLeft: '1em' }}>- Emoji Generator for Misskey -</span>
+      </div>
       <div className="main">
         <Main />
       </div>

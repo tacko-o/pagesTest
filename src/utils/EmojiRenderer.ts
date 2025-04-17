@@ -28,7 +28,7 @@ export async function getPng(text: string, font: Font, color: string, borderColo
         textLine.forEach((line, i) => {
           ctx.save();
           //const lineWidth = ctx.measureText(line).width;
-          ctx.strokeText(line, canvas.width * 0.05, (fontSize * 0.9 * i) + fontSize * 0.05, canvas.width * 0.9);
+          ctx.strokeText(line, canvas.width * 0.05, (fontSize * 0.92 * i) + fontSize * 0.05, canvas.width * 0.9);
           ctx.restore();
         });
       }
@@ -36,7 +36,7 @@ export async function getPng(text: string, font: Font, color: string, borderColo
       // fill
       textLine.forEach((line, i) => {
         ctx.save();
-        ctx.fillText(line, canvas.width * 0.05, (fontSize * 0.9 * i) + fontSize * 0.05, canvas.width * 0.9);
+        ctx.fillText(line, canvas.width * 0.05, (fontSize * 0.92 * i) + fontSize * 0.05, canvas.width * 0.9);
         ctx.restore();
       });
       resolve(canvas.toDataURL());

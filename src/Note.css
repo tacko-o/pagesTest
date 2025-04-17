@@ -1,0 +1,100 @@
+:root {
+    --light-accent: rgb(134, 179, 0);
+    --light-fg: rgb(0, 0, 0);
+    --light-bg: rgb(255, 255, 255);
+    --light-reaction-bg-pressed: rgba(134, 179, 0, 0.15);
+    --light-reaction-bg: rgb(242, 242, 242);
+    --dark-accent: rgb(134, 179, 0);
+    --dark-fg: rgb(199, 209, 216);
+    --dark-bg: rgb(45, 45, 45);
+    --dark-reaction-bg-pressed: rgba(134, 179, 0, 0.15);
+    --dark-reaction-bg: rgb(58, 58, 58);
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+.note-main {
+    width: 500px;
+    padding: 14px 16px;
+    position: relative;
+    display: flex;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    overflow: clip;
+    object-fit: cover;
+    margin: 0 1em 0 0;
+}
+
+.note-time {
+    flex-shrink: 0;
+    margin-left: auto;
+    font-size: .9em;
+}
+
+.header {
+    display: flex;
+    align-items: baseline;
+}
+
+.note-name {
+    overflow-wrap: "normal";
+    margin: 0 0.5em 0 0;
+    padding: 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.note-text {
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.note-emoji-inline {
+    height: 2em;
+    vertical-align: middle;
+}
+
+.note-role {
+    height: 1.3em;
+    vertical-align: -20%;
+    margin-left: 0.5em;
+}
+
+.note-emoji-img {
+    height: 1.25em;
+    vertical-align: -.25em;
+}
+
+.ti {
+    font-family: tabler-icons !important;
+    margin-right: 32px;
+}
+
+.note-reactions {
+    padding: 0;
+}
+
+.note-reaction-button {
+    display: inline-flex;
+    height: 42px;
+    margin: 2px 4px;
+    margin-left: 0;
+    padding: 0 6px;
+    font-size: 1.5em;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.note-reaction-count {
+    font-size: 0.7em;
+    margin: 0 0 0 4px;
+}

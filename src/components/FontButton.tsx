@@ -33,7 +33,7 @@ const FontButton = ({ text, fonts, onClick }: FontButtonProps) => {
   return (
     <>
       <div>
-        <span className='font'>
+        <span className='font-buttons'>
           {
             fonts.map((font) => {
               return (

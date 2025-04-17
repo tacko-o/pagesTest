@@ -1,18 +1,18 @@
-
-select {
-  font-family: "Hachi Maru Pop", cursive;
-  font-weight: 400;
-  font-style: normal;
+body {
+  background-color: #f6ebde;
+  padding: 15px;
+  color: #4e2600;
 }
 
-.App-header {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+h1 {
+  color: #583a11;
+}
+
+.emoji-preview {
+  margin: 0 15px;
+  background-color: #f0f0f0;
+  border: 1px solid rgb(126, 67, 0);
+  border-radius: 5px;
 }
 
 .font-button {

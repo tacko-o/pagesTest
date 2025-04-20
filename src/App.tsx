@@ -4,14 +4,15 @@ import ConvertList from './resources/letter_convert_list.json'
 import './App.css';
 import FontButton, { Font } from './components/FontButton';
 import NotePreview from './components/NotePreview';
-import { getPng } from './utils/EmojiRenderer';
+import { getPng, getYOffset } from './utils/EmojiRenderer';
 
 const Main = () => {
   /** 絵文字名変換表 */
   const convertList: { [key: string]: string } = ConvertList;
 
   /** 絵文字にする文字列 */
-  const [text, setText] = useState('おふとん\nかけてあげ\nましょうね');
+  //const [text, setText] = useState('おふとん\nかけてあげ\nましょうね');
+  const [text, setText] = useState('てすと');
 
   /** 選択中のフォント名 */
   const [selectedFont, setSelectedFont] = useState(Fonts[0]);
@@ -30,7 +31,10 @@ const Main = () => {
 
   useEffect(() => {
     (async () => {
-      setPng(await getPng(text, selectedFont, color, borderColor, borderWidth));
+      const yOffset = getYOffset(selectedFont);
+      console.log(yOffset);
+      //setPng(await getPng(text, selectedFont, color, yOffset, borderColor, borderWidth));
+      setPng(yOffset);
     })();
   }, [text, selectedFont, color]);
 
@@ -80,8 +84,8 @@ const Main = () => {
       </div>
       <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
         {/* ノートプレビュー */}
-        <NotePreview png={png} />
-        <NotePreview png={png} dark />
+        {png && <NotePreview png={png} />}
+        {png && <NotePreview png={png} dark />}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
       {/* テキスト */}

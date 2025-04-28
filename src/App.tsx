@@ -12,7 +12,7 @@ const Main = () => {
 
   /** 絵文字にする文字列 */
   const [text, setText] = useState('おふとん\nかけてあげ\nましょうね');
-
+  
   /** 選択中のフォント名 */
   const [selectedFont, setSelectedFont] = useState(Fonts[0]);
 
@@ -23,14 +23,17 @@ const Main = () => {
   const [borderColor, setBorderColor] = useState('#ffffff');
 
   /** 色 */
-  const [borderWidth, setborderWidth] = useState(10);
+  const [borderWidth, setBorderWidth] = useState(10);
+
+    /** 行間 */
+    const [lineHeight, setLineHeight] = useState(0.92);
 
   /** 絵文字画像 */
   const [png, setPng] = useState('');
 
   useEffect(() => {
     (async () => {
-      setPng(await getPng(text, selectedFont, color, borderColor, borderWidth));
+      setPng(await getPng(text, selectedFont, color, borderColor, borderWidth, lineHeight));
     })();
   }, [text, selectedFont, color]);
 
@@ -54,6 +57,7 @@ const Main = () => {
       i++;
     }
   }
+
   /**
    * テキストエリア要素変更イベント
    * @param e textarea要素変更イベント
@@ -73,18 +77,18 @@ const Main = () => {
   return (
     <div className="App-header">
       <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
-        {/* 画像プレビュー */}
+        {/* 大きめ絵文字プレビュー */}
         <span className='emoji-preview'>
           {png && <img alt="result" src={png} />}
         </span>
       </div>
       <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
-        {/* ノートプレビュー */}
-        <NotePreview png={png} />
-        <NotePreview png={png} dark />
+        {/* ノートに絵文字入れたプレビュー */}
+        {png && <NotePreview png={png} />}
+        {png && <NotePreview png={png} dark />}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
-      {/* テキスト */}
+      {/* 絵文字にするテキスト */}
       <textarea className='text' style={{ fontFamily: `${selectedFont.name}` }} value={text} onChange={handleTextChange} />
       { /* フォントボタン群 */}
       <FontButton text={text} fonts={Fonts} onClick={fontButtonOnClick} />

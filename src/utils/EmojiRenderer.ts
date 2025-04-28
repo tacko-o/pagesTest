@@ -4,7 +4,7 @@ import { Font } from '../components/FontButton';
 /**
  * プレビュー用canvas描画
  */
-export async function getPng(text: string, font: Font, color: string, borderColor: string, borderWidth: number): Promise<string> {
+export async function getPng(text: string, font: Font, color: string, borderColor: string, borderWidth: number, lineHeight: number): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       const canvas = document.createElement('canvas');
@@ -29,7 +29,7 @@ export async function getPng(text: string, font: Font, color: string, borderColo
       if (borderWidth > 0) {
         textLine.forEach((line, i) => {
           ctx.save();
-          ctx.strokeText(line, canvas.width * 0.05, (fontSize * 0.92 * i) + fontSize * 0.05 - yOffset, canvas.width * 0.9);
+          ctx.strokeText(line, canvas.width * 0.05, (fontSize * lineHeight * i) + fontSize * 0.05 - yOffset, canvas.width * 0.9);
           ctx.restore();
         });
       }
@@ -37,7 +37,7 @@ export async function getPng(text: string, font: Font, color: string, borderColo
       // fill
       textLine.forEach((line, i) => {
         ctx.save();
-        ctx.fillText(line, canvas.width * 0.05, (fontSize * 0.92 * i) + fontSize * 0.05 - yOffset, canvas.width * 0.9);
+        ctx.fillText(line, canvas.width * 0.05, (fontSize * lineHeight * i) + fontSize * 0.05 - yOffset, canvas.width * 0.9);
         ctx.restore();
       });
 

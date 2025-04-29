@@ -1,4 +1,3 @@
-import '../App.css';
 import { Font } from '../components/FontButton';
 
 /**

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import '../App.css';
+import '../css/App.css';
 import EmojiPreviewBox from './EmojiPreviewBox';
 
 /** フォント情報 */
@@ -12,21 +11,15 @@ export type Font = {
 type FontButtonProps = {
   text: string,
   fonts: Font[],
+  selectedFont: Font,
   onClick: (font: Font) => void,
 }
 
-const FontButton = ({ text, fonts, onClick }: FontButtonProps) => {
-  /** 選択中フォント */
-  const [selectedFont, setSelectedFont] = useState({
-    displayName: '',
-    name: '',
-  });
-
+const FontButton = ({ text, fonts, selectedFont, onClick }: FontButtonProps) => {
   /**
    * ボタンクリックイベント
    */
   const buttonOnClick = (font: Font) => {
-    setSelectedFont(font);
     onClick(font);
   }
 
@@ -39,7 +32,7 @@ const FontButton = ({ text, fonts, onClick }: FontButtonProps) => {
               return (
                 <button name={font.name} value={font.name} onClick={buttonOnClick.bind(this, font)} disabled={selectedFont.name === font.name} className='font-button'>
                   <EmojiPreviewBox text={text !== "" ? text : "おふとん\nかけてあげ\nましょうね"} font={font} color='#ff0000' />
-                  <span className='font-name'>{font.displayName}</span>
+                  <span className='font-name' style={{fontFamily: font.name}}>{font.displayName}</span>
                 </button>
               );
             })

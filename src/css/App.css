@@ -1,0 +1,81 @@
+body {
+  background-color: #f6ebde;
+  padding: 30px 15px;
+  color: #4e2600;
+}
+
+.text {
+  width: 120px;
+  height: 120px;
+}
+
+.emoji-preview {
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  border: 1px solid rgb(126, 67, 0);
+  border-radius: 5px;
+  height: 128px;
+}
+
+.font-button {
+  height: 4em;
+  white-space: pre-wrap;
+  padding: 0;
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #ded5cf;
+  margin: 1px;
+  overflow: hidden;
+}
+
+.font-button:hover {
+  border: 1px solid #827867;
+}
+
+.font-button:disabled {
+  background-color: #fff7e8;
+  border: 1px solid #d2aa84;
+  color: #7d2800;
+}
+
+.font-preview {
+  width: 4em;
+  white-space: nowrap;
+  align-content: center;
+  text-align: center;
+}
+
+.font-preview-content {
+  letter-spacing: -.1em;
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+}
+
+.font-name {
+  width: 120px;
+  background-color: #eae3de;
+  font-size: 0.8em;
+  text-align: left;
+  padding: 3px;
+}
+
+.font-button:disabled > .font-name {
+  background-color: #d2aa84;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.tab {
+  background-color: #e4dfd9;
+  width: 6em;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #d2aa84;
+  color: #ae8d6f;
+}
+
+.tab.active-tab {
+  background-color: #d2aa84;
+  border: 1px solid #d2aa84;
+  color: #fff4ed;
+  font-weight: bold;
+}

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Fonts from './resources/fonts.json'
 import ConvertList from './resources/letter_convert_list.json'
-import './App.css';
+import './css/App.css';
 import FontButton, { Font } from './components/FontButton';
 import NotePreview from './components/NotePreview';
 import { getPng } from './utils/EmojiRenderer';
+import TabComponent from './components/TabComponent';
+import Header from './components/Header';
 
 const Main = () => {
   /** 絵文字名変換表 */
@@ -12,7 +14,7 @@ const Main = () => {
 
   /** 絵文字にする文字列 */
   const [text, setText] = useState('おふとん\nかけてあげ\nましょうね');
-  
+
   /** 選択中のフォント名 */
   const [selectedFont, setSelectedFont] = useState(Fonts[0]);
 
@@ -25,11 +27,12 @@ const Main = () => {
   /** 色 */
   const [borderWidth, setBorderWidth] = useState(10);
 
-    /** 行間 */
-    const [lineHeight, setLineHeight] = useState(0.92);
+  /** 行間 */
+  const [lineHeight, setLineHeight] = useState(0.92);
 
   /** 絵文字画像 */
   const [png, setPng] = useState('');
+
 
   useEffect(() => {
     (async () => {
@@ -88,11 +91,17 @@ const Main = () => {
         {png && <NotePreview png={png} dark />}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
-      {/* 絵文字にするテキスト */}
-      <textarea className='text' style={{ fontFamily: `${selectedFont.name}` }} value={text} onChange={handleTextChange} />
-      { /* フォントボタン群 */}
-      <FontButton text={text} fonts={Fonts} onClick={fontButtonOnClick} />
       </div>
+      <TabComponent titles={[
+        { icon: "", text: "テキスト" },
+        { icon: "", text: "フォント" },
+        { icon: "", text: "色" },
+      ]}>
+        {/* 絵文字にするテキスト */
+          <textarea className='text' style={{ fontFamily: `${selectedFont.name}` }} value={text} onChange={handleTextChange} />}
+        { /* フォントボタン群 */
+          <FontButton text={text} fonts={Fonts} selectedFont={selectedFont} onClick={fontButtonOnClick} />}
+      </TabComponent>
     </div>
   );
 }
@@ -103,9 +112,7 @@ const App = () => {
       {/* フォント読み込み */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link href={`https://fonts.googleapis.com/css2?${Fonts.map((font) => 'family=' + font.name.replaceAll(' ', '+')).join('&')}&display=swap`} rel="stylesheet" />
-      <div className='title'><span style={{ fontWeight: 'bold' }}>EGMi</span>
-        <span style={{ fontSize: '0.5em', marginLeft: '1em' }}>- Emoji Generator for Misskey -</span>
-      </div>
+      <Header />
       <div className="main">
         <Main />
       </div>

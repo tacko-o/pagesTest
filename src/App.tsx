@@ -5,7 +5,7 @@ import './css/App.css';
 import FontButton, { Font } from './components/FontButton';
 import NotePreview from './components/NotePreview';
 import { getPng } from './utils/EmojiRenderer';
-import TabComponent from './components/TabComponent';
+import Tabs from './components/Tabs';
 import Header from './components/Header';
 
 const Main = () => {
@@ -79,20 +79,18 @@ const Main = () => {
 
   return (
     <div className="App-header">
-      <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', margin: '5px 0' }}>
         {/* 大きめ絵文字プレビュー */}
         <span className='emoji-preview'>
           {png && <img alt="result" src={png} />}
         </span>
       </div>
-      <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap', margin: '5px 0' }}>
         {/* ノートに絵文字入れたプレビュー */}
         {png && <NotePreview png={png} />}
         {png && <NotePreview png={png} dark />}
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', margin: '15px 0' }}>
-      </div>
-      <TabComponent titles={[
+      <Tabs titles={[
         { icon: "", text: "テキスト" },
         { icon: "", text: "フォント" },
         { icon: "", text: "色" },
@@ -101,7 +99,7 @@ const Main = () => {
           <textarea className='text' style={{ fontFamily: `${selectedFont.name}` }} value={text} onChange={handleTextChange} />}
         { /* フォントボタン群 */
           <FontButton text={text} fonts={Fonts} selectedFont={selectedFont} onClick={fontButtonOnClick} />}
-      </TabComponent>
+      </Tabs>
     </div>
   );
 }

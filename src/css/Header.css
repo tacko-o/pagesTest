@@ -74,7 +74,7 @@
   max-width: 0px;
   background-color: #d2aa84;
   z-index: 2;
-  transition: all 0.4s 0s ease-in-out;
+  transition: all 0.3s 0s ease-in-out;
 }
 
 .navigation[aria-hidden="false"] {
